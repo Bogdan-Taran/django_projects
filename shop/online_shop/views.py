@@ -24,9 +24,9 @@ def register_view(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Аккаунт {username} создан')
             return redirect('login')
-        else:
-            form = CustomUserCreationForm()
-        return render(request, 'online_shop/register.html', {'form': form})
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'online_shop/register.html', {'form': form})
     
 class CustomLoginView(LoginView):
     template_name = 'online_shop/login.html'

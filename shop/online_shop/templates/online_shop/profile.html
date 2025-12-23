@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<h2>Профиль что это такое</h2>
+<p><strong>Имя:</strong> {{ user.first_name }}</p>
+<p><strong>Логин:</strong> {{ user.username }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+{% if user.avatar %}
+    <p><strong>Аватар: Путь воды</strong></p>
+    <img src="{{ user.avatar.url }}" alt="Аватар" width="100">
+{% else %}
+    <p>Аватар что это такое</p>
+{% endif %}
+{% endblock %}

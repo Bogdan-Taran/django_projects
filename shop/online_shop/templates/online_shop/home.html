@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<h1>Велком ту Чечняяя</h1>
+<p>Хороший товар брать дорогой человек</p>
+
+<h2>Ищешь</h2>
+<form action="#" method="get">
+    <input type="text" name="q" placeholder="Искать штука">
+    <button type="submit">Вай давай найди уже</button>
+</form>
+
+<h2>Новый купить не пожалеешь</h2>
+{% if latest_services %}
+    <ul>
+        {% for service in latest_services %}
+        <li>
+            <h3>{{ service.name }}</h3>
+            {% if service.image %}
+                <img src="{{ service.image.url }}" alt="{{ service.name }}" width="100">
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Нэт ещё товар</p>
+{% endif %}
+{% endblock %}
