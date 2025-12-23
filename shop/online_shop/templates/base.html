@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Интернет-мага камапуля ежи{% endblock %}</title>
+    <link rel="stylesheet" href="#">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Моя прелесть</a>
+            <a href="{% url 'service_list' %}">Штучки</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}">Крутой чел</a>
+                <a href="{% url 'logout' %}">Сваливаем</a>
+            {% else %}
+                <a href="{% url 'login' %}">Въехать</a>
+                <a href="{% url 'register' %}">Быть частью</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %} {% endblock %}
+    </main>
+    
+</body>
+</html>
