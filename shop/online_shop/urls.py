@@ -7,4 +7,10 @@ urlpatterns = [
     path('login/', views.CustomLoginView.as_view(), name='login'),
     path('logout/', views.CustomLogoutView.as_view(), name='logout'),
     path('profile/', views.profile_view, name='profile'),
+    path('service/', views.service_list_view, name='service_list'),
+    path('service/<int:id>', views.service_list_view, name='service_list'),
+    path('search_result/', views.search_result_view, name='search_result'),
+    
+
+    
 ]

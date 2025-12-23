@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service.name }}{% endblock %}
+
+{% block content %}
+<h1>{{ service.name }}</h1>
+
+{% if service.image %}
+    <img src="{{service.image.url}}" alt="{{ service.name }}" width="300">
+{% endif %}
+
+<p>{{service.description|linebreaks}}</p>
+
+<form action="{% url 'search_result' %}" method="get">
+    <input type="text" name="q" placeholder="Поискать штучки" value="{{ request.GET.q }}">
+    <button type="submit">Найти</button>
+</form>
+
+{% endblock %}

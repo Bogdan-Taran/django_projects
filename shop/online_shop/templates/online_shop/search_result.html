@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Результат поиск показать{% endblock %}
+
+{% block content %}
+
+<h1>Результаты поиска по запросу "{{ query }}"</h1>
+
+<form action="{% url 'search_result' %}" method="get">
+    <input type="text" name="q" placeholder="Поиск тваров или услуг" value="{{ query }}">
+    <button type="submit">Ищи</button>
+</form>
+
+{% if services %}
+    <ul>
+        {% for service in services %}
+        <li>
+            <h3><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></h3>
+            {% if service.image %}
+                <img src="{{ service.image.url }}" alt="{{ service.name }}" width="100">
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Ничего нет по запросу, дорогой</p>
+{% endif %}
+{% endblock %}

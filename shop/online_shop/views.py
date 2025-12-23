@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.db.models import Q
+
 from .models import Service
 from .forms import CustomUserCreationForm
 
@@ -43,6 +45,33 @@ def profile_view(request):
     return render(request, 'online_shop/profile.html', {'user':request.user})
 
 
+def service_list_view(request):
+    services = Service.objects.filter(is_active=True)
+    context = {
+        'services': services,
+    }
+    return render(request, 'online_shop/service_list.html', context)
+
+def service_detail_view(request, id):
+    service = get_object_or_404(Service, id = id, id_active = True)
+    context = {
+        'service': service,
+    }
+    return render(request, 'online_shop/service_detail.html', context)
+
+def search_result_view(request):
+    query = request.GET.get('q', '')
+    services = []
+    if query:
+        services = Service.objects.filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query)
+        ).filter(is_active=True)
+    context = {
+        'services': services,
+        'query': query,
+    }
+    return render(request, 'online_shop/search_result.html', context)
 
 
 

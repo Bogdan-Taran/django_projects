@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Товари и услуга{% endblock %}
+
+{% block content %}
+
+<h1>Весь товар дорогой</h1>
+
+<form action="{% url 'search_result' %}" method="get">
+    <input type="text" name="q" placeholder="Поищи что-то штучка" value="{{ request.GET.q }}">
+    <button type="submit">Ищи</button>
+</form>
+
+{% if services %}
+<ul>
+    {% for service in services %}
+    <li>
+        <h3><a href="{% url 'service_detail' service.id %}">{{service.name}}</a></h3>
+        {% if service.image %}
+        <img src="{{ service.image.url }}" alt="{{ service.name }}" width="100">
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Нэту товар в доступе или услуга</p>
+{% endif %}
+{% endblock %}
