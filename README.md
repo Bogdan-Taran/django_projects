@@ -79,3 +79,16 @@ python manage.py migrate
 ```bash
 python manage.py createsuperuser
 ```
+
+Users
+
+admin
+taranbogdan9.2@mail.ru
+Admin
+
+user1
+Muhamed
+eses12345
+
+egormur
+dada12345
