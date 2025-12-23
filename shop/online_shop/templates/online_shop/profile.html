@@ -3,14 +3,27 @@
 {% block title %}Профиль{% endblock %}
 
 {% block content %}
-<h2>Профиль что это такое</h2>
+<h2>Это что за красивый человек</h2>
 <p><strong>Имя:</strong> {{ user.first_name }}</p>
 <p><strong>Логин:</strong> {{ user.username }}</p>
 <p><strong>Email:</strong> {{ user.email }}</p>
 {% if user.avatar %}
-    <p><strong>Аватар: Путь воды</strong></p>
+    <p><strong>Аватарка</strong></p>
     <img src="{{ user.avatar.url }}" alt="Аватар" width="100">
 {% else %}
-    <p>Аватар что это такое</p>
+    <p>Аватар: Путь воды</p>
+{% endif %}
+
+<h3>Ваши заказы</h3>
+{% if orders %}
+    <ul>
+        {% for order in orders %}
+        <li>
+            <strong>{{ order.service.name }}</strong> - {{ order.status }} ({{ order.created_at|date:"d.m.Y H:i"}})
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>У тэбя нет заказов, дорогой</p>
 {% endif %}
 {% endblock %}

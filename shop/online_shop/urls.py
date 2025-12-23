@@ -9,6 +9,7 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('service/', views.service_list_view, name='service_list'),
     path('service/<int:id>/', views.service_detail_view, name='service_detail'),
+    path('service/<int:id>/order/', views.create_order_view, name='create_order'),
     path('search_result/', views.search_result_view, name='search_result'),
     
 

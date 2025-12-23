@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 
-from .models import Service
+from .models import Service, Order
 from .forms import CustomUserCreationForm
 
 User = get_user_model()
@@ -42,7 +42,8 @@ class CustomLogoutView(LogoutView):
 
 @login_required
 def profile_view(request):
-    return render(request, 'online_shop/profile.html', {'user':request.user})
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'online_shop/profile.html', {'user':request.user, 'orders': orders})
 
 
 def service_list_view(request):
@@ -75,3 +76,12 @@ def search_result_view(request):
 
 
 
+@login_required
+def create_order_view(request, id):
+    service = get_object_or_404(Service, id=id, is_active = True)
+    order, created = Order.objects.get_or_create(user=request.user, service=service, defaults={'status': 'Ошидание'})
+    if created:
+        messages.success(request, f"Вы заказали {service.name}")
+    else:
+        messages.info(request, f"Вы уже заказывали {service.name} ранее")
+    return redirect('service_detail', id=service.id)

@@ -11,9 +11,18 @@
 
 <p>{{service.description|linebreaks}}</p>
 
+{% if user.is_authenticated %}
+    <form action="{% url 'create_order' service.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Сдэлать заказ</button>
+    </form>
+{% else %}
+    <p>Ээээ, <a href="{% url 'login' %}"></a>войди</a> прэдже чэм заказ сдэлать аээ</p>
+{% endif %}
+
 <form action="{% url 'search_result' %}" method="get">
     <input type="text" name="q" placeholder="Поискать штучки" value="{{ request.GET.q }}">
-    <button type="submit">Найти</button>
+    <button type="submit">Ищи</button>
 </form>
 
 {% endblock %}

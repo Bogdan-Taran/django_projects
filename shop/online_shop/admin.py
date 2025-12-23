@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import UserModel, Service
+from .models import UserModel, Service, Order
 
 class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'first_name', 'is_staff', 'is_active',)
@@ -27,4 +27,13 @@ class ServiceAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
     fields = ('name', 'description', 'image', 'is_active')
 
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('user', 'service', 'status', 'created_at')
+    list_filter = ('status', 'created_at')
+    search_fields = ('user_username', 'service__name')
+    list_editable = ('status',)
+    fields = ('user', 'service', 'status', 'created_at')
+    readonly_fields = ('created_at',)
 
