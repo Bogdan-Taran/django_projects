@@ -53,7 +53,7 @@ def service_list_view(request):
     return render(request, 'online_shop/service_list.html', context)
 
 def service_detail_view(request, id):
-    service = get_object_or_404(Service, id = id, id_active = True)
+    service = get_object_or_404(Service, id = id, is_active = True)
     context = {
         'service': service,
     }

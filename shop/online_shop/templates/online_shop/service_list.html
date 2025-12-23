@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1>Весь товар дорогой</h1>
+<h1>Весь товар, дорогой</h1>
 
 <form action="{% url 'search_result' %}" method="get">
     <input type="text" name="q" placeholder="Поищи что-то штучка" value="{{ request.GET.q }}">
@@ -15,7 +15,7 @@
 <ul>
     {% for service in services %}
     <li>
-        <h3><a href="{% url 'service_detail' service.id %}">{{service.name}}</a></h3>
+        <h3><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></h3>
         {% if service.image %}
         <img src="{{ service.image.url }}" alt="{{ service.name }}" width="100">
         {% endif %}

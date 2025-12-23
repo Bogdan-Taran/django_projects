@@ -11,8 +11,8 @@ class UserModel(AbstractUser):
         verbose_name='Аватар',
     )
 
-    REQUIRED_FIELDS = ['username', 'first_name']
-    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name']
+    # USERNAME_FIELD = 'email'
 
     def __str__(self):
         return self.username
@@ -37,3 +37,17 @@ class Service(models.Model):
     
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, verbose_name='Пользователь')
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, verbose_name='Товар/услуга')
+    created_at = models.DateTimeField('Дата заказа', auto_now_add=True)
+    status = models.CharField('Статус', max_length=20, default='Ожидание')
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return f"{self.user.username} заказал {self.service.name}"
